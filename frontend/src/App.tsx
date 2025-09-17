@@ -1,10 +1,10 @@
 import './App.css'
-import ContributionCalendar from "./ContributionCalendar";
+import GamesCalendar from "./GamesCalendar";
 
 function App() {
   return (
     <>
-      <ContributionCalendar />
+      <GamesCalendar />
     </>
   )
 }
