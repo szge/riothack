@@ -33,3 +33,5 @@ Ideas:
 Filter:
 - needs to use AI centrally
 - coaching agent
+
+Judging criteria:

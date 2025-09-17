@@ -1,0 +1,112 @@
+.calendar-container {
+  background: #0d1117;
+  color: #c9d1d9;
+  font-family: Arial, sans-serif;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 900px;
+  margin: 32px auto;
+  box-shadow: 0 2px 8px #0003;
+}
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.calendar-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.calendar-settings {
+  font-size: 0.95rem;
+  color: #8b949e;
+  cursor: pointer;
+}
+.calendar-graph {
+  margin-top: 8px;
+}
+/* Month labels */
+.calendar-months {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 36px;
+  margin-bottom: 2px;
+  font-size: 0.85rem;
+  color: #8b949e;
+}
+.calendar-month {
+  flex: 1;
+  text-align: left;
+}
+/* Main grid: left column for days, right for squares */
+.calendar-grid {
+  display: flex;
+  flex-direction: row;
+}
+/* Day labels column, 7 rows, only Mon/Wed/Fri shown */
+.calendar-days {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin-right: 6px;
+  font-size: 0.85rem;
+  color: #8b949e;
+  height: 92px;
+  width: 28px;
+}
+.calendar-day-label {
+  height: 12px;
+  line-height: 12px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  text-align: right;
+}
+.calendar-day-label-empty {
+  height: 12px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+}
+/* Weeks: horizontal, each week is a column */
+.calendar-weeks {
+  display: flex;
+  flex-direction: row;
+}
+.calendar-week {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-right: 3px; /* Add space between columns */
+}
+.calendar-day {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  margin: 0;
+  box-sizing: border-box;
+  border: 1px solid #161b22;
+}
+.calendar-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 0.85rem;
+}
+.calendar-how {
+  color: #8b949e;
+  cursor: pointer;
+}
+.calendar-legend {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.calendar-legend-square {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  border: 1px solid #161b22;
+  display: inline-block;
+}
