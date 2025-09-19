@@ -11,12 +11,12 @@ def main():
 	if not api_key:
 		raise ValueError('RIOT_API_KEY environment variable must be set.')
 
-	with open("experiments/szge_match_ids.json", "r", encoding="utf-8") as f:
+	with open("experiments/download_matches/szge_match_ids.json", "r", encoding="utf-8") as f:
 		match_ids = json.load(f)
 
 
 	# Load existing progress if available
-	dates_path = "experiments/szge_match_dates.json"
+	dates_path = "experiments/download_matches/szge_match_dates.json"
 	if os.path.exists(dates_path):
 		with open(dates_path, "r", encoding="utf-8") as f:
 			match_dates = json.load(f)

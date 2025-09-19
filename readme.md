@@ -29,9 +29,26 @@ Ideas:
 - [Interactive GitHub skyline](https://github.com/github/gh-skyline)
 - itero.gg: drafting tool, champion pool builder, personality quiz
 - recommended champion based on your spotify history (e.g. Varus or Amumu for emo enjoyers)
+- [LoL s11-13 gameplay dataset (train AI agent)](https://github.com/MiscellaneousStuff/tlol)
+- [LoL OpenCV AI bot](https://github.com/Oleffa/LeagueAI)
+- [minigames](https://loldodgegame.com/dodge/)
+- [op.gg MCP](https://github.com/opgginc/opgg-mcp)
+    - I could create a MCP server(s) for grounded info on items, pro player advice, etc.
 
 Filter:
 - needs to use AI centrally
 - coaching agent
+- helps players learn
 
 Judging criteria:
+
+Insight Quality
+- clear, helpful, relevant takeways for avg League player. makes it easy to improve or reflect
+Technical Execution
+- project runs smoothly and reliably. Well-structured, efficient, and thoughtfully built
+Creativity & UX
+- Experience polished, intuitive, and fun to use. something players would actually want to engage with
+AWS Integration
+- AWS tools used in smart, impactful ways that go beyond the basics. project showcases what’s possible with generative AI and Amazon Bedrock?
+Unique & Vibes
+- project feels fresh, fun, or delightfully unexpected brings something new or memorable to the player experience that stands out from typical stat tools

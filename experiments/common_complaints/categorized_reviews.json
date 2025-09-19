@@ -1,0 +1,31 @@
+{
+  "num_reviews": 700,
+  "processed_reviews": 700,
+  "max_concurrent_requests": 5,
+  "complaint_categories": {
+    "learning_curve_and_complexity": {
+      "learning_champions": 27,
+      "understanding_systems": 24,
+      "steep_curve": 22,
+      "bad_tutorial": 3,
+      "mechanics_difficult": 15
+    },
+    "hostile_community_environment": {
+      "flamed_for_mistakes": 49,
+      "toxic_teammates": 300
+    },
+    "matchmaking_issues": {
+      "smurfs": 28,
+      "unfair_matchmaking": 103,
+      "long_queue": 5,
+      "long_matches": 9
+    },
+    "time_investment_requirements": {
+      "slow_progress": 41
+    },
+    "technical_and_interface_issues": {
+      "bad_ui": 10,
+      "client_bugs": 58
+    }
+  }
+}

@@ -22,7 +22,7 @@ def main():
 		matches = response.json()
 		all_matches.extend(matches)
 
-	with open("experiments/szge_match_ids.json", "w", encoding="utf-8") as f:
+	with open("experiments/download_matches/szge_match_ids.json", "w", encoding="utf-8") as f:
 		json.dump(all_matches, f, ensure_ascii=False, indent=2)
 
 if __name__ == "__main__":
