@@ -44,11 +44,15 @@ Judging criteria:
 
 Insight Quality
 - clear, helpful, relevant takeways for avg League player. makes it easy to improve or reflect
+
 Technical Execution
 - project runs smoothly and reliably. Well-structured, efficient, and thoughtfully built
+
 Creativity & UX
 - Experience polished, intuitive, and fun to use. something players would actually want to engage with
+
 AWS Integration
 - AWS tools used in smart, impactful ways that go beyond the basics. project showcases what’s possible with generative AI and Amazon Bedrock?
+
 Unique & Vibes
 - project feels fresh, fun, or delightfully unexpected brings something new or memorable to the player experience that stands out from typical stat tools
