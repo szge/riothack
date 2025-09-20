@@ -27,6 +27,7 @@ features:
 
 resources:
 - [op.gg chatbot](https://help.op.gg/hc/en-us/articles/50542735364761-OP-GG-AI-Chatbot-usage-guide)
+- https://meeko.ai/ I like their components and design
 
 other notes:
 - item and rune builds
@@ -38,3 +39,9 @@ other notes:
 - chat interface with embedded interactive, dynamic, generative UI for users to chat about their gameplay and how to improve
 - start with something like a text-based chatbot, then add images and generative UI later
 - maybe this doesn't even need to be a standard chatbot interface. it would be much cooler to have the minigames be integrated into a canvas seamlessly into the chat. maybe like https://www.anthropic.com/news/build-artifacts
+
+why a chatbot?
+a chatbot can provide flexibility and use unstructured information, meaning datasets are easy to create.
+
+what problem are we trying to solve?
+LoL has a steep learning curve for beginners, and they often don't know what to focus on, and where to find high-quality resources.
