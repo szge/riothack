@@ -60,14 +60,11 @@ LoL has a steep learning curve for beginners, and they often don't know what to 
 
 
 TODO:
-- patch history should be restricted to the N most recent patches; filter out before parsing bs4 text
+- [x] allow N parallel wiki page calls to the same tool; e.g. allow `List[str]` as input to `get_summoner_spell_data()`
+- [x] patch history should be restricted to the N most recent patches; filter out before parsing bs4 text
 - Claude's `uv` uses the global `uv` installed on my system, instead of the `uv` for this project. annoying
 - fix champ names or use Levenshtein etc
-- fetch champion names automatically from the Riot API
-- allow N parallel wiki page calls to the same tool; e.g. allow `List[str]` as input to `get_summoner_spell_data()`
-- if a tool call fails, return the list of valid inputs from the Riot API
-
-
+- if a tool call fails, return the list of valid inputs from the Riot API (e.g. champ names)
 
 presentation:
 - a central problem for AI agents is hallucation.

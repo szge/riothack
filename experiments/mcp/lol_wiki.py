@@ -8,20 +8,6 @@ import asyncio
 
 mcp = FastMCP("LolWikiServer")
 
-try:
-    with open("experiments/mcp/champion.json", "r", encoding="utf-8") as file:
-        data = json.load(file)
-        CHAMPION_NAMES_RAW = [champion_data["name"]
-                              for champion_data in data["data"].values()]
-except Exception as e:
-    print("Error loading champion name data:", e)
-    CHAMPION_NAMES_RAW = []
-
-LOL_WIKI_BASE = "https://wiki.leagueoflegends.com/en-us"
-USER_AGENT = "CoachAltMCP"
-# the amount of recent patch history to consider e.g. for champion pages
-NUM_RECENT_PATCHES = 3
-
 
 class PageType(Enum):
     CHAMPION = auto(),
@@ -29,7 +15,88 @@ class PageType(Enum):
     SUMMONER_SPELL = auto(),
     ITEM = auto(),
     MONSTER = auto(),
-    LATEST_PATCH = auto()
+    # LATEST_PATCH = auto()
+
+VALID_KEYS = {
+    PageType.CHAMPION: [],
+    PageType.RUNE: [],
+    PageType.SUMMONER_SPELL: [],
+    PageType.ITEM: [],
+    PageType.MONSTER: []
+}
+
+DATA_FILES = {
+    PageType.CHAMPION: "experiments/mcp/dragontail_data/champion.json",
+    PageType.RUNE: "experiments/mcp/dragontail_data/runesReforged.json",
+    PageType.SUMMONER_SPELL: "experiments/mcp/dragontail_data/summoner.json",
+    PageType.ITEM: "experiments/mcp/dragontail_data/item.json",
+    # MONSTER handled separately below
+}
+
+for page_type, file_path in DATA_FILES.items():
+    try:
+        with open(file_path, "r", encoding="utf-8") as file:
+            data = json.load(file)
+            match page_type:
+                case PageType.CHAMPION:
+                    VALID_KEYS[PageType.CHAMPION] = [
+                        champion_data["name"]
+                        for champion_data in data["data"].values()
+                    ]
+                case PageType.RUNE:
+                    VALID_KEYS[PageType.RUNE] = [
+                        rune["name"]
+                        for tree in data
+                        for slot in tree.get("slots", [])
+                        for rune in slot.get("runes", [])
+                    ]
+                case PageType.SUMMONER_SPELL:
+                    VALID_KEYS[PageType.SUMMONER_SPELL] = [
+                        spell_data["name"]
+                        for spell_data in data["data"].values()
+                        if "modes" in spell_data and "CLASSIC" in spell_data["modes"]
+                    ]
+                case PageType.ITEM:
+                    VALID_KEYS[PageType.ITEM] = [
+                        item_data["name"]
+                        for item_data in data["data"].values()
+                        if "maps" in item_data and item_data["maps"].get("11") is True
+                    ]
+    except Exception as e:
+        print(f"Error loading data for {page_type.name}: {e}")
+
+
+# strangely, dragontail doesn't appear to have monster names :/
+VALID_KEYS[PageType.MONSTER] = [
+    "Atakhan",
+    "Chemtech Drake",
+    "Cloud Drake",
+    "Hextech Drake",
+    "Infernal Drake",
+    "Mountain Drake",
+    "Ocean Drake",
+    "Baron Nashor",
+    "Elder Dragon",
+    "Rift Herald",
+    "Voidgrub",
+    "Ancient Krug",
+    "Blue Sentinel",
+    "Crimson Raptor",
+    "Greater Murk Wolf"
+    "Gromp",
+    "Red Brambleback",
+    "Rift Scuttler",
+    "Krug",
+    "Mini Krug",
+    "Murk Wolf",
+    "Raptor",
+    "Voidmite",
+]
+
+LOL_WIKI_BASE = "https://wiki.leagueoflegends.com/en-us"
+USER_AGENT = "CoachAltMCP"
+# the amount of recent patch history to consider e.g. for champion pages
+NUM_RECENT_PATCHES = 3
 
 
 async def parse_wiki_page(page_url: str, page_type: PageType = PageType.CHAMPION) -> str | None:
@@ -83,6 +150,12 @@ async def parse_wiki_page(page_url: str, page_type: PageType = PageType.CHAMPION
 
             main_content = " ".join(soup.stripped_strings)
             return main_content
+        except httpx.HTTPStatusError as e:
+            if e.response.status_code == 301:
+                return (
+                    f"{page_type.name.capitalize()} not found. Valid {page_type.name.lower()}s: {VALID_KEYS[page_type]}"
+                )
+            return None
         except Exception:
             return None
 
@@ -123,9 +196,6 @@ async def execute_tasks_and_combine(
     return separator.join(combined_data)
 
 
-MAX_CHAMPIONS_PER_CALL = 5
-
-
 @mcp.tool()
 async def get_champion_data(champion_names: List[str] = ["Janna"]) -> str:
     """
@@ -134,6 +204,7 @@ async def get_champion_data(champion_names: List[str] = ["Janna"]) -> str:
     This provides an up-to-date overview of abilities, champion playstyle, stats, and recent patch history.
     Info provided: class, range type, HP, armor, etc.
     """
+    MAX_CHAMPIONS_PER_CALL = 5
     champion_names = champion_names[:MAX_CHAMPIONS_PER_CALL]
 
     tasks = [
@@ -142,9 +213,6 @@ async def get_champion_data(champion_names: List[str] = ["Janna"]) -> str:
     ]
 
     return await execute_tasks_and_combine(tasks, champion_names)
-
-
-MAX_RUNES_PER_CALL = 5
 
 
 @mcp.tool()
@@ -156,15 +224,13 @@ async def get_runes_data(runes: List[str] = ["Dark Harvest"]) -> str:
     Runes are enhancements that add new abilities or buffs to the champion.
     The player can choose their loadout of runes before the match begins, during champion select, or their Collection tab.
     """
+    MAX_RUNES_PER_CALL = 5
     runes = runes[:MAX_RUNES_PER_CALL]
     tasks = [
         parse_wiki_page(f"{LOL_WIKI_BASE}/{rune}", PageType.RUNE)
         for rune in runes
     ]
     return await execute_tasks_and_combine(tasks, runes)
-
-
-MAX_SUMMONER_SPELLS_PER_CALL = 5
 
 
 @mcp.tool()
@@ -176,6 +242,7 @@ async def get_summoner_spell_data(summoner_spells: List[str] = ["Flash"]) -> str
     Summoner spells are special abilities that all players can have access to based on the map, in addition to their champion abilities.
     Players choose their two preferred summoner spells during champion select.
     """
+    MAX_SUMMONER_SPELLS_PER_CALL = 5
     summoner_spells = summoner_spells[:MAX_SUMMONER_SPELLS_PER_CALL]
     tasks = [
         parse_wiki_page(f"{LOL_WIKI_BASE}/{summoner_spell}",
@@ -183,9 +250,6 @@ async def get_summoner_spell_data(summoner_spells: List[str] = ["Flash"]) -> str
         for summoner_spell in summoner_spells
     ]
     return await execute_tasks_and_combine(tasks, summoner_spells)
-
-
-MAX_ITEMS_PER_CALL = 5
 
 
 @mcp.tool()
@@ -197,15 +261,13 @@ async def get_item_data(items: List[str] = ["Boots of Swiftness"]) -> str:
     An item is a modular enhancement that grants bonuses and capabilities beyond what champions have access to by default.
     Most items can be purchased from the shop in exchange for An icon representing Gold gold while near the spawn, while a small number of them may be distributed to players from various effects.
     """
+    MAX_ITEMS_PER_CALL = 5
     items = items[:MAX_ITEMS_PER_CALL]
     tasks = [
         parse_wiki_page(f"{LOL_WIKI_BASE}/{item}", PageType.ITEM)
         for item in items
     ]
     return await execute_tasks_and_combine(tasks, items)
-
-
-MAX_MONSTERS_PER_CALL = 5
 
 
 @mcp.tool()
@@ -217,6 +279,7 @@ async def get_monster_data(monster_names: List[str] = ["Blue Sentinel"]) -> str:
     Monsters are neutral units in League of Legends.
     Unlike minions, monsters do not fight for either team, and will only do so if provoked.
     """
+    MAX_MONSTERS_PER_CALL = 5
     monster_names = monster_names[:MAX_MONSTERS_PER_CALL]
     tasks = [
         parse_wiki_page(f"{LOL_WIKI_BASE}/{monster_name}", PageType.MONSTER)
