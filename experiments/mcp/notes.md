@@ -73,4 +73,6 @@ presentation:
 - a central problem for AI agents is hallucation.
     - "every LLM output is hallucination. but some are useful hallucinations"
 - we fix this by grounding the outputs as much as possible with high-quality, up-to-date, and concise data that can be fetched quickly
+- op.gg MCP is okay, but has a lot of missing stuff. for example, looking up BORK's item metadata only gives you build path but not passive effects, active ability
 - LoL wiki as a data source; the pages themselves are huge, so we need to cut down on the size. we do this by removing unnecessary elements by page category. beautiful soup for parsing HTML and extracting only text (we don't need the HTML tags)
+    - example: Aatrox page went from 10002 -> 3053 words, speeding up later agent text generation and saving on costs
