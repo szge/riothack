@@ -12,6 +12,8 @@ engineering:
 - build an MCP server (similar to OP.GG) that supplies missing but crucial information
 - need to build a database of sound fundamental advice for what new players should focus on
 - `uv run mcp install server.py`
+- the function docstrings actually matter since they're fed to the agent.
+- it appears that MCP doesn't like f-strings for docstrings and the agent doesn't read them properly.
 
 features:
 - supplies sound fundamental advice for improving
@@ -28,6 +30,7 @@ features:
         - champions, runes, summoner spells, items, main monsters, latest patch
     - op.gg MCP server
         - detailed matchup runes, builds, winrates
+        - their items page is kinda ass due to bloat. maybe write my own
 
 dataset:
 - what's missing from the op.gg MCP server?
@@ -59,3 +62,15 @@ LoL has a steep learning curve for beginners, and they often don't know what to 
 TODO:
 - patch history should be restricted to the N most recent patches; filter out before parsing bs4 text
 - Claude's `uv` uses the global `uv` installed on my system, instead of the `uv` for this project. annoying
+- fix champ names or use Levenshtein etc
+- fetch champion names automatically from the Riot API
+- allow N parallel wiki page calls to the same tool; e.g. allow `List[str]` as input to `get_summoner_spell_data()`
+- if a tool call fails, return the list of valid inputs from the Riot API
+
+
+
+presentation:
+- a central problem for AI agents is hallucation.
+    - "every LLM output is hallucination. but some are useful hallucinations"
+- we fix this by grounding the outputs as much as possible with high-quality, up-to-date, and concise data that can be fetched quickly
+- LoL wiki as a data source; the pages themselves are huge, so we need to cut down on the size. we do this by removing unnecessary elements by page category. beautiful soup for parsing HTML and extracting only text (we don't need the HTML tags)
