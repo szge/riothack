@@ -11,6 +11,7 @@ input:
 engineering:
 - build an MCP server (similar to OP.GG) that supplies missing but crucial information
 - need to build a database of sound fundamental advice for what new players should focus on
+- `uv run mcp install server.py`
 
 features:
 - supplies sound fundamental advice for improving
@@ -22,8 +23,16 @@ features:
 - AI context
     - (always included) definitions page for context about what all the LoL-specific terms mean
     - create a database with scraped documents/transcripts from the best/pro players
-    - LoL wiki as a data source (maybe implement as a tool call)
+        - annotated with tags? for easy lookup by skill, e.g. macro, micro, jungle pathing, etc.
+    - LoL wiki as a data source / MCP server
+        - champions, runes, summoner spells, items, main monsters, latest patch
     - op.gg MCP server
+        - detailed matchup runes, builds, winrates
+
+dataset:
+- what's missing from the op.gg MCP server?
+    - macro, decision-making
+
 
 resources:
 - [op.gg chatbot](https://help.op.gg/hc/en-us/articles/50542735364761-OP-GG-AI-Chatbot-usage-guide)
@@ -45,3 +54,8 @@ a chatbot can provide flexibility and use unstructured information, meaning data
 
 what problem are we trying to solve?
 LoL has a steep learning curve for beginners, and they often don't know what to focus on, and where to find high-quality resources.
+
+
+TODO:
+- patch history should be restricted to the N most recent patches; filter out before parsing bs4 text
+- Claude's `uv` uses the global `uv` installed on my system, instead of the `uv` for this project. annoying
