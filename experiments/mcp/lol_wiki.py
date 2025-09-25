@@ -17,7 +17,8 @@ class PageType(Enum):
     MONSTER = auto(),
     # LATEST_PATCH = auto()
 
-VALID_KEYS = {
+
+VALID_KEYS = {  # these are the valid page names, e.g. CHAMPION = ['Aatrox', ...]
     PageType.CHAMPION: [],
     PageType.RUNE: [],
     PageType.SUMMONER_SPELL: [],
@@ -150,14 +151,12 @@ async def parse_wiki_page(page_url: str, page_type: PageType = PageType.CHAMPION
 
             main_content = " ".join(soup.stripped_strings)
             return main_content
-        except httpx.HTTPStatusError as e:
-            if e.response.status_code == 301:
-                return (
-                    f"{page_type.name.capitalize()} not found. Valid {page_type.name.lower()}s: {VALID_KEYS[page_type]}"
-                )
-            return None
         except Exception:
-            return None
+            return (
+                f"{page_type.name.capitalize()} not found. "
+                "You may be trying to fetch an invalid page. "
+                f"Valid {page_type.name.lower()}s: {VALID_KEYS[page_type]}"
+            )
 
 
 async def execute_tasks_and_combine(
