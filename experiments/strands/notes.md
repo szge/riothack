@@ -7,4 +7,4 @@ https://strandsagents.com/latest/documentation/docs/examples/python/knowledge_ba
 https://docs.aws.amazon.com/bedrock/latest/userguide/s3-data-source-connector.html
 
 - vector databases are too expensive; Pinecone is min $50/mo, Aurora Postgres is $0.12/hr
-- solution: create a 
+- solution: use a s3 vector database
