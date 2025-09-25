@@ -27,10 +27,10 @@ VALID_KEYS = {  # these are the valid page names, e.g. CHAMPION = ['Aatrox', ...
 }
 
 DATA_FILES = {
-    PageType.CHAMPION: "experiments/mcp/dragontail_data/champion.json",
-    PageType.RUNE: "experiments/mcp/dragontail_data/runesReforged.json",
-    PageType.SUMMONER_SPELL: "experiments/mcp/dragontail_data/summoner.json",
-    PageType.ITEM: "experiments/mcp/dragontail_data/item.json",
+    PageType.CHAMPION: "experiments/wiki_mcp/dragontail_data/champion.json",
+    PageType.RUNE: "experiments/wiki_mcp/dragontail_data/runesReforged.json",
+    PageType.SUMMONER_SPELL: "experiments/wiki_mcp/dragontail_data/summoner.json",
+    PageType.ITEM: "experiments/wiki_mcp/dragontail_data/item.json",
     # MONSTER handled separately below
 }
 

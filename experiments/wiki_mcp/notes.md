@@ -33,9 +33,10 @@ features:
         - their items page is kinda ass due to bloat. maybe write my own
 
 dataset:
-- what's missing from the op.gg MCP server?
-    - macro, decision-making
-
+    - op.gg: rank data, pick/ban data, match history, champion+lane pick and win rates
+    - s3/vector: macro, decision-making
+    - official LoL wiki (MCP): stats for champs, runes, monsters, summs, items
+    - mobafire: champ+lane-specific details guides and builds
 
 resources:
 - [op.gg chatbot](https://help.op.gg/hc/en-us/articles/50542735364761-OP-GG-AI-Chatbot-usage-guide)
