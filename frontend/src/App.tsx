@@ -1,10 +1,10 @@
 import './App.css'
-import GamesCalendar from "./GamesCalendar";
+import Rotate from './Rotate'
 
 function App() {
   return (
     <>
-      <GamesCalendar />
+      <Rotate/>
     </>
   )
 }

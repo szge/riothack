@@ -1,6 +1,9 @@
 dataset:
 - https://www.youtube.com/@PhroxzonLeagueFundamentals
 
+https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-buckets.html?icmpid=docs_amazons3_console
+https://us-east-1.console.aws.amazon.com/dynamodbv2/home?region=us-east-1#service
+
 fair use considerations:
 - "In computer- and Internet-related works, the transformative characteristic of the later work is often that it provides the public with a benefit not previously available to it, which would otherwise remain unavailable."
 - "The use must be productive and must employ the quoted matter in a different manner or for a different purpose from the original. ...If the secondary use adds value to the original—if the quoted matter is used as raw material, transformed in the creation of new information, new aesthetics, new insights and understandings—this is the very type of activity that the fair use doctrine intends to protect for the enrichment of society."
@@ -20,11 +23,16 @@ fair use considerations:
 - I can speed up the audio (https://news.ycombinator.com/item?id=44376989)
 - remove any pauses longer than 20ms (https://news.ycombinator.com/item?id=44378345)
 
-
 - initial test: Input tokens: 3567, output tokens: 1193
 - gpt-4o-transcribe is actually pretty good at LoL content:
     - "Syndra Q can be a hard spell to land sometimes, but I would say more often than not, Faker executes his trade correctly in this position, either by moving a little higher and casting E first to land a stun, or just being a little more patient with his Q to see which direction Renekton will juke in first."
 
+- write a good prompt for transforming the original text
+
 presentation: how to hack time (ekko)
-- cut dead time, speed up video by 2-4x
+- cut dead time then speed up video by 1-4x
 - effectively getting N minutes per minute
+- 5-minute video transcription
+    - 1x Input tokens: 3567, output tokens: 1193 $0.02085
+    - 1.5x Input tokens: 2205, output tokens: 1183 $0.01734 (-17%)
+    - 2x Input tokens: 1654, output tokens: 1187 $0.01601 (-23%) (note: minor quality loss, about 1% of tokens)
